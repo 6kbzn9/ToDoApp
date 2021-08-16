@@ -8,11 +8,12 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+html {
+  font-size: 16px;
+}
 body {
   font-family: "Roboto", sans-serif;
   background-color: #eee;
-  font-size: 16px;
 }
 header {
   position: sticky;
@@ -33,18 +34,18 @@ form {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-bottom: 3rem;
+  margin-bottom: 3em;
 }
 input,
 button {
   outline: none;
-  padding: 0.5rem 1rem;
+  padding: 0.5em 1em;
   font-size: 1rem;
   transition: 250ms ease-in-out;
 }
 input {
   flex-grow: 1;
-  margin-right: 1rem;
+  margin-right: 1em;
   border: none;
   border-bottom: 2px solid #777;
 }
@@ -76,7 +77,7 @@ button:hover {
   color: #222;
   font-family: "Montserrat", sans-serif;
   font-size: 1.25rem;
-  padding: 0.75rem 1rem;
+  padding: 0.75em 1em;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 .task::first-letter {
@@ -84,4 +85,10 @@ button:hover {
 }
 .tasks .task:not(:last-child) {
   margin-bottom: 1rem;
+}
+
+@media (max-width: 450px) {
+  html {
+    font-size: 14px;
+  }
 }
