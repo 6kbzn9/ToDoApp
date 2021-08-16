@@ -92,3 +92,9 @@ button:hover {
     font-size: 14px;
   }
 }
+
+@media (max-width: 350px) {
+  html {
+    font-size: 12px;
+  }
+}
