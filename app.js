@@ -6,7 +6,7 @@ let lists = [];
 
 if (localStorage.getItem("lists")) {
   lists = JSON.parse(localStorage.getItem("lists"));
-  lists.forEach((list) => {
+  lists.forEach((list, index) => {
     const task = document.createElement("p");
     const remove = document.createElement("button");
     task.classList.add("task");
@@ -15,8 +15,11 @@ if (localStorage.getItem("lists")) {
     task.innerText = list;
     task.appendChild(remove);
     tasks.appendChild(task);
+
     remove.addEventListener("click", () => {
       task.remove();
+      lists.splice(index, 1);
+      localStorage.setItem("lists", JSON.stringify(lists));
     });
   });
 }
@@ -38,12 +41,15 @@ const add = (e) => {
     task.appendChild(remove);
     tasks.appendChild(task);
 
-    remove.addEventListener("click", () => {
-      task.remove();
+    lists.forEach((list, index) => {
+      remove.addEventListener("click", () => {
+        task.remove();
+        lists.splice(index);
+        localStorage.setItem("lists", JSON.stringify(lists));
+      });
     });
   }
 
-  console.log(lists);
   input.focus();
 };
 
