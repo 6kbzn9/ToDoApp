@@ -6,7 +6,7 @@ let lists = [];
 
 if (localStorage.getItem("lists")) {
   lists = JSON.parse(localStorage.getItem("lists"));
-  lists.forEach((list, index) => {
+  lists.forEach((list) => {
     const task = document.createElement("p");
     const remove = document.createElement("button");
     task.classList.add("task");
@@ -17,9 +17,10 @@ if (localStorage.getItem("lists")) {
     tasks.appendChild(task);
 
     remove.addEventListener("click", () => {
-      task.remove();
-      lists.splice(index, 1);
+      let index = task.innerText;
+      lists.splice(lists.indexOf(index), 1);
       localStorage.setItem("lists", JSON.stringify(lists));
+      task.remove();
     });
   });
 }
@@ -27,30 +28,26 @@ if (localStorage.getItem("lists")) {
 const add = (e) => {
   e.preventDefault();
 
+  const task = document.createElement("p");
+  const remove = document.createElement("button");
+  task.classList.add("task");
+  remove.classList.add("remove");
+  remove.innerHTML = '<i class="fas fa-trash"></i>';
+  task.innerText = input.value;
+  task.appendChild(remove);
   if (input.value) {
     lists.push(input.value);
-    localStorage.setItem("lists", JSON.stringify(lists));
-
-    const task = document.createElement("p");
-    const remove = document.createElement("button");
-    task.classList.add("task");
-    remove.classList.add("remove");
-    remove.innerHTML = '<i class="fas fa-trash"></i>';
-    task.innerText = input.value;
-    input.value = "";
-    task.appendChild(remove);
     tasks.appendChild(task);
-
-    lists.forEach((list, index) => {
-      remove.addEventListener("click", () => {
-        task.remove();
-        lists.splice(index);
-        localStorage.setItem("lists", JSON.stringify(lists));
-      });
-    });
   }
+  localStorage.setItem("lists", JSON.stringify(lists));
+  input.value = "";
 
-  input.focus();
+  remove.addEventListener("click", () => {
+    let index = task.innerText;
+    lists.splice(lists.indexOf(index), 1);
+    localStorage.setItem("lists", JSON.stringify(lists));
+    task.remove();
+  });
 };
 
 button.addEventListener("click", add);
